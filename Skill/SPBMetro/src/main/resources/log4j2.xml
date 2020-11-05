@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+
+  <Appenders>
+
+    <RollingFile name="1File"
+      fileName="logs/search.log"
+      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+      <Filters>
+        <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL" />
+      </Filters>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval = "1" />
+        <SizeBasedTriggeringPolicy
+          size="250 MB" />
+      </Policies>
+    </RollingFile>
+
+    <RollingFile name="2File"
+      fileName="logs/input_errors.log"
+      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+      <Filters>
+        <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL" />
+      </Filters>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval = "1" />
+        <SizeBasedTriggeringPolicy
+          size="250 MB" />
+      </Policies>
+    </RollingFile>
+
+    <RollingFile name="3File"
+      fileName="logs/exceptions.log"
+      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+      <Filters>
+        <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL" />
+      </Filters>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval = "1" />
+        <SizeBasedTriggeringPolicy
+          size="250 MB" />
+      </Policies>
+    </RollingFile>
+  </Appenders>
+
+  <Loggers>
+    <Logger name="search" level="INFO"
+      additivity="false">
+      <AppenderRef ref="1File"/>
+    </Logger>
+
+    <Logger name="errors" level="warn"
+      additivity="false">
+      <AppenderRef ref="2File"/>
+    </Logger>
+
+      <Logger name="exception" level="error"
+      additivity="false">
+      <AppenderRef ref="3File"/>
+    </Logger>
+
+    </Loggers>
+
+
+</Configuration>
